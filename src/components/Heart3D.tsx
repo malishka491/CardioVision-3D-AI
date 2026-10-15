@@ -2,7 +2,7 @@
 
 import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Html, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { riskColor, VESSEL_META, type VesselKey } from "@/lib/constants";
@@ -89,11 +89,6 @@ function Vessel({
   const active = selected || hovered;
   const paths = VESSEL_PATHS[vesselKey];
 
-  const labelPos = useMemo(() => {
-    const curve = new THREE.CatmullRomCurve3(paths.main.map((p) => new THREE.Vector3(...p)));
-    return curve.getPoint(0.58);
-  }, [paths.main]);
-
   const mainGeom = useTube(paths.main, active ? 0.068 : 0.052);
   const branchGeom = useTube(paths.branch, active ? 0.045 : 0.034);
   const haloGeom = useTube(paths.main, 0.11);
@@ -153,17 +148,7 @@ function Vessel({
           <meshBasicMaterial color={color} transparent opacity={0.14} depthWrite={false} />
         </mesh>
       )}
-      <Html position={[labelPos.x, labelPos.y, labelPos.z]} center distanceFactor={6} zIndexRange={[20, 0]}>
-        <button
-          onClick={() => onSelect(vesselKey)}
-          className={`whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-medium backdrop-blur transition ${
-            selected ? "border-white/70 bg-slate-900/90 text-white" : "border-slate-500/50 bg-slate-900/70 text-slate-300"
-          }`}
-        >
-          {VESSEL_META[vesselKey].short}
-          {risk.available && risk.probability !== null ? ` · ${(risk.probability * 100).toFixed(0)}%` : " · n/a"}
-        </button>
-      </Html>
+      
     </group>
   );
 }
