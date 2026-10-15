@@ -7,21 +7,27 @@ Recording plan: 1920×1080, dark room UI, browser zoom 100 %, one continuous tak
 *Say:* "CardioVision 3D, Track A. An end-to-end clinical decision-support prototype: it trains four models —
 overall CAD plus LAD, LCX and RCA stenosis — serves them over a REST API, explains them, and projects the
 vessel probabilities onto an interactive 3D coronary view. Everything you will see runs locally."
-*Point out:* status chip "Models ready", the amber "Synthetic training data" badge, the permanent disclaimer bar.
+*Point out:* status chip "Models ready", the real-dataset
+status for active run #1, and the permanent disclaimer bar.
 
 ## Scene 2 — Honest data story (0:35–1:40)
 *Screen:* Dataset Explorer → upload a CSV → validation report.
-*Say:* "The intended dataset is Z-Alizadeh Sani, 303 patients. It is not bundled, so the app ships a clearly
-labelled synthetic cohort. Upload any compatible CSV and the inspector reports rows, dtypes, missingness,
-duplicates, class balance and target availability."
+*Say:* "The active model run uses the UCI Extension of the
+Z-Alizadeh Sani dataset, containing 303 patient records.
+The dataset is not bundled with the repository. The app
+also supports a clearly labelled synthetic fallback when
+the real dataset is unavailable. The dataset inspector
+reports rows, data types, missingness, duplicates, class
+balance and target availability."
 *Point out:* the leakage row — `Cath`, `LAD`, `LCX`, `RCA` flagged **target / excluded**; warnings list.
-*Action:* click **Train** and show the new active run id.
+*Action:* Show the validation report for the loaded dataset and the existing active run id (#1). Do not retrain during the demo unless intentionally demonstrating the training workflow.
 
 ## Scene 3 — Training & leakage guard (1:40–2:30)
 *Screen:* terminal running `npm run train`.
-*Say:* "The same pipeline runs from the CLI: stratified 60/20/20 splits, class weights, candidate models,
-validation-tuned thresholds, Platt calibration, 5-fold CV. The input matrix is built only from the 54 declared
-clinical features, so angiography columns can never leak."
+*Say:* "The pipeline uses stratified splits, validation-tuned
+thresholds and cross-validation. The target columns Cath,
+LAD, LCX and RCA are explicitly excluded from model inputs
+to prevent target leakage."
 
 ## Scene 4 — Patient assessment (2:30–3:45)
 *Screen:* Patient Assessment.
@@ -52,7 +58,8 @@ associations, not causal effects."
 *Say:* "Nothing here is hardcoded. Accuracy with a Wilson interval, precision, recall, F1, ROC-AUC, Brier,
 ROC and precision-recall curves, calibration bins, confusion matrix and the candidate-model comparison — all
 read from the saved artifact of the active run."
-*Point out:* the amber synthetic-data warning and the small-sample caveat.
+*Point out:* the active real-dataset run, its preliminary
+metrics and the small-sample caveat.
 
 ## Scene 8 — Safety, tests, close (7:40–8:40)
 *Screen:* About & Safety, then terminal `npm test` and `npm run build`.
