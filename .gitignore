@@ -1,0 +1,23 @@
+node_modules/
+.next/
+out/
+build/
+coverage/
+.env
+.env.local
+*.log
+
+# Datasets, patient files and model exports must never be committed
+data/*
+!data/README.md
+models/
+*.csv
+*.xlsx
+*.joblib
+*.pkl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+tsconfig.tsbuildinfo
