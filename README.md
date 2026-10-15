@@ -172,15 +172,22 @@ npm run dev                 # http://localhost:3000
 ```
 
 ### macOS / Linux (bash)
-
 ```bash
 npm install
 cp .env.example .env
+# Edit .env and set DATABASE_URL for your local PostgreSQL database
+
 npx drizzle-kit push
+
+# Default: train using the synthetic cohort
 npm run train
+
+# To train using the real dataset instead:
+npm run train -- data/Z-Alizadeh-sani-dataset.csv
+
+# Start the development server
 npm run dev
 ```
-
 ### Production
 
 ```bash
