@@ -11,7 +11,7 @@ candidate-model table).
 
 | Item | Value |
 | --- | --- |
-| Run | #3 (active) |
+| Run | #1 (active) |
 | Dataset | `data/Z-Alizadeh-sani-dataset.csv` — UCI "extention of Z-Alizadeh sani dataset" (id 411), 303 records, 59 columns, 0 duplicates |
 | Targets | `Cath` (CAD/Normal), `LAD`, `LCX`, `RCA` (Stenotic/Normal) |
 | Seed | 20260207 |
